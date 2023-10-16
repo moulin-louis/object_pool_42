@@ -33,4 +33,6 @@
 
 #other
 cmake-build-debug
+.idea
 */.idea
+*/*/.idea
