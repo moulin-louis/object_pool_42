@@ -12,6 +12,7 @@ class Worker {
 public:
   Position position;
   Statistic statistic;
+  Shovel *shovel;
 };
 
 
