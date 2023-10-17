@@ -14,7 +14,7 @@ public:
   const float& get_x() const;
   const float& get_y() const;
 private:
-  friend struct Graph;
+  friend class Graph;
   float x;
   float y;
 };
