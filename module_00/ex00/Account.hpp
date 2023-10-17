@@ -1,7 +1,6 @@
 //
 // Created by loumouli on 10/16/23.
 //
-
 #ifndef MODULE_00_ACCOUNT_HPP
 #define MODULE_00_ACCOUNT_HPP
 
@@ -11,11 +10,15 @@
 struct Bank;
 
 struct Account {
+public:
+  const int& get_value();
 private:
+  friend struct Bank;
+
   int id;
   int value;
+
   Account();
-  friend struct Bank;
   friend std::ostream &operator<<(std::ostream &, const Account &);
 };
 

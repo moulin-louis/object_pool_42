@@ -97,3 +97,7 @@ void Bank::take_loan(int id, int value_loan) {
   }
   cout << "WARN: Invalid ID in take_load" << endl;
 }
+
+const int &Bank::get_liquidity() {
+  return this->liquidity;
+}

@@ -14,3 +14,7 @@ std::ostream &operator<<(std::ostream &p_os, const Account &p_account) {
   return (p_os);
 }
 
+const int &Account::get_value() {
+  return this->value;
+}
+
