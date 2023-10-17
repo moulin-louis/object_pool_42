@@ -11,3 +11,7 @@ Worker::Worker() {
 Worker::add_shovel(Shovel *shovel_to_add) {
   this->shovel = shovel_to_add;
 }
+
+Worker::remove_shovel() {
+  this->shovel = nullptr;
+}
