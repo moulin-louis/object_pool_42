@@ -13,6 +13,7 @@ public:
   Position position;
   Statistic statistic;
   Shovel *shovel;
+  void add_shovel(Shovel *);
 };
 
 
