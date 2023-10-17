@@ -11,93 +11,90 @@ Bank::Bank() {
 
 Bank::~Bank() {
   cout << "LOG: Bank deleted" << endl;
-  for (std::vector<Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
-    delete *it;
+  for (map<int, Bank::Account *>::iterator it = this->clientAccounts.begin();
+       it != this->clientAccounts.end(); it++) {
+    delete it->second;
   }
 }
 
 std::ostream &operator<<(std::ostream &p_os, const Bank &p_bank) {
-  p_os << "Bank informations : " << std::endl;
+  p_os << "Bank information's : " << std::endl;
   p_os << "Liquidity : " << p_bank.liquidity << std::endl;
-  for (std::vector<Account *>::const_iterator clientAccount = p_bank.clientAccounts.begin();
+  for (map<int, Bank::Account *>::const_iterator clientAccount = p_bank.clientAccounts.begin();
        clientAccount != p_bank.clientAccounts.end();
        ++clientAccount)
-    p_os << **clientAccount << std::endl;
+    p_os << *clientAccount->second << std::endl;
   return (p_os);
 }
 
 void Bank::create_account(int initial_value) {
-  if (initial_value < 0) {
-    cout << "ERROR: Negative value in create_account" << endl;
-    return;
-  }
+  if (initial_value < 0)
+    throw runtime_error("Negative value in create_account");
   Account *new_account = new Account;
   new_account->value = initial_value;
-  this->clientAccounts.push_back(new_account);
+  this->clientAccounts.insert(pair<int, Account*>(this->nbr_of_client, new_account));
   new_account->id = this->nbr_of_client;
   this->nbr_of_client++;
 }
 
 void Bank::delete_account(int id) {
-  for (std::vector<Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
-    if ((*it)->id == id) {
-      delete *it;
+  for (map<int, Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
+    if ((*it).second->id == id) {
+      delete it->second;
       this->clientAccounts.erase(it);
       return;
     }
   }
-  cout << "WARN: Invalid ID in delete_account" << endl;
+  throw runtime_error("Invalid ID in delete_account");
 }
 
 void Bank::deposit(int id, int value) {
-  if (value < 0) {
-    cout << "ERROR: Negative value in deposit" << endl;
-    return;
-  }
-  for (std::vector<Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
-    if ((*it)->id == id) {
-      int fees = (int)((double)value * 0.05);
-      (*it)->value += value - fees;
+  if (value < 0)
+    throw runtime_error("Negative value in deposit");
+  for (map<int, Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
+    if ((*it).second->id == id) {
+      int fees = (int) ((double) value * 0.05);
+      (*it).second->value += value - fees;
       this->liquidity += fees;
       return;
     }
   }
-  cout << "WARN: Invalid ID in deposit" << endl;
+  throw runtime_error("Invalid ID in deposit");
 }
 
 void Bank::withdraw(int id, int value) {
-   if (value < 0) {
-     cout << "ERROR: Negative value in withdraw" << endl;
-     return;
-   }
-  for (std::vector<Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
-    if ((*it)->id == id) {
-      (*it)->value -= value;
+  if (value < 0)
+    throw runtime_error("Negative value in withdraw");
+  for (map<int, Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
+    if ((*it).second->id == id) {
+      (*it).second->value -= value;
       return;
     }
   }
-  cout << "WARN: Invalid ID in deposit" << endl;
+  throw runtime_error("Invalid ID in withdraw");
 }
 
 void Bank::take_loan(int id, int value_loan) {
-  if (value_loan < 0) {
-    cout << "ERROR: Negative value in take_loan" << endl;
-    return;
-  }
-  if (value_loan > this->liquidity) {
-    cout << "WARN: Liquidity too low in take_loan" << endl;
-    return;
-  }
-  for (std::vector<Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
-    if ((*it)->id == id) {
+  if (value_loan < 0)
+    throw runtime_error("Negative value in take_loan");
+  if (value_loan > this->liquidity)
+    throw runtime_error("Liquidity too low in take_loan");
+  for (map<int, Account *>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++) {
+    if ((*it).second->id == id) {
       this->liquidity -= value_loan;
-      (*it)->value += value_loan;
+      (*it).second->value += value_loan;
       return;
     }
   }
-  cout << "WARN: Invalid ID in take_load" << endl;
+  throw runtime_error("Invalid ID in take_loan");
 }
 
-const int &Bank::get_liquidity() {
+const int &Bank::get_liquidity() const {
   return this->liquidity;
+}
+
+const Bank::Account &Bank::operator[](int id) {
+  if (this->clientAccounts.find(id) == this->clientAccounts.end())
+    throw runtime_error("Invalid ID in operator[]");
+  return *this->clientAccounts[id];
 }
