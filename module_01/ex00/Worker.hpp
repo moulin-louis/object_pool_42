@@ -6,7 +6,7 @@
 
 #include "Position.hpp"
 #include "Statistic.hpp"
-#include "Worker.hpp"
+#include "Shovel.hpp"
 
 class Worker {
 public:
