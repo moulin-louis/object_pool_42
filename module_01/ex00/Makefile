@@ -15,18 +15,23 @@
 # ################################## #
 CC			= c++
 MKDIR		= mkdir -p
+
 RM			= rm -rf
 
 # ################################## #
 #              EXEC NAME             #
 # ################################## #
-NAME		=	test
+NAME		=	ex00
 
 # ################################## #
 #               SOURCES              #
 # ################################## #
-C_DIR		= .
-C_FILES		=	main.cpp \
+C_DIR		= src
+C_FILES		=	main.cpp	\
+				Tool.cpp	\
+				Shovel.cpp	\
+				Hammer.cpp	\
+				Worker.cpp	\
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -47,7 +52,7 @@ CFLAGS		= -Wall -Wextra -Werror -g -MMD -std=c++98
 # ################################## #
 #                INCLUDES            #
 # ################################## #
-CINCLUDES	=	-I ./inc
+CINCLUDES	=	-I./inc
 
 # ################################## #
 #                RULES               #

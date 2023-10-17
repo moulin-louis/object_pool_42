@@ -4,17 +4,27 @@
 #ifndef EX00_WORKER_HPP
 #define EX00_WORKER_HPP
 
+#include <cstring>
+#include <iostream>
+
 #include "Position.hpp"
 #include "Statistic.hpp"
 #include "Shovel.hpp"
 
+using namespace std;
+class Shovel;
+
 class Worker {
+public:
+  Worker();
+  ~Worker();
+  void add_shovel(Shovel *);
+  void remove_shovel();
+  friend ostream &operator<<(ostream &, const Worker &);
+private:
   Position position;
   Statistic statistic;
   Shovel *shovel;
-  Worker();
-  void add_shovel(Shovel *);
-  void remove_shovel();
 };
 
 
