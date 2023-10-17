@@ -14,6 +14,7 @@ public:
   Statistic statistic;
   Shovel *shovel;
   void add_shovel(Shovel *);
+  void remove_shovel();
 };
 
 
