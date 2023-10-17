@@ -9,10 +9,10 @@
 #include "Shovel.hpp"
 
 class Worker {
-public:
   Position position;
   Statistic statistic;
   Shovel *shovel;
+  Worker();
   void add_shovel(Shovel *);
   void remove_shovel();
 };
