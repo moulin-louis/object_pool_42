@@ -1,7 +1,6 @@
 //
 // Created by llr on 10/18/23.
 //
-
 #include "../inc/Workshop.hpp"
 
 void Workshop::executeWorkDay() {

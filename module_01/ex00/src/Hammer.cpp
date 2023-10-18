@@ -1,7 +1,6 @@
 //
 // Created by llr on 10/17/23.
 //
-
 #include "../inc/Hammer.hpp"
 
 Hammer::Hammer() {
@@ -10,11 +9,11 @@ Hammer::Hammer() {
   this->owner = NULL;
 }
 
+Hammer::~Hammer() {
+  cout << "Hammer: destructring..." << endl;
+}
+
 void Hammer::use() {
   cout << "Hammer: USING HAMMMMMEEEER " << endl;
   this->numberOfUses += 1;
-}
-
-Hammer::~Hammer() {
-  cout << "Hammer: destructring..." << endl;
 }

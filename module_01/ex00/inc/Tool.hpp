@@ -1,11 +1,11 @@
 //
 // Created by llr on 10/17/23.
 //
-
 #ifndef EX00_TOOL_HPP
 #define EX00_TOOL_HPP
 
 #include <sys/types.h>
+
 #include "Worker.hpp"
 
 class Worker;
@@ -22,6 +22,5 @@ private:
   void remove_owner();
   friend class Worker;
 };
-
 
 #endif //EX00_TOOL_HPP

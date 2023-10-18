@@ -4,7 +4,6 @@
 #ifndef EX00_WORKER_HPP
 #define EX00_WORKER_HPP
 
-// #include <cstring>
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -26,10 +25,9 @@ public:
   void work();
   friend ostream &operator<<(ostream &, const Worker &);
 private:
-  Position position;
-  Statistic statistic;
+  Position coordonnee;
+  Statistic stat;
   vector<Tool *> tools;
 };
-
 
 #endif //EX00_WORKER_HPP

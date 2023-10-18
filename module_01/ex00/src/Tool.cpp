@@ -1,7 +1,6 @@
 //
 // Created by llr on 10/17/23.
 //
-
 #include "../inc/Tool.hpp"
 
 void Tool::remove_owner() {

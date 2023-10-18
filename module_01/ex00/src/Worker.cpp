@@ -1,10 +1,9 @@
 //
 // Created by loumouli on 10/17/23.
 //
-
 #include "../inc/Worker.hpp"
 
-Worker::Worker() : position(), statistic() {
+Worker::Worker() : coordonnee(), stat() {
   cout << "Worker: creating..." << endl;
 }
 

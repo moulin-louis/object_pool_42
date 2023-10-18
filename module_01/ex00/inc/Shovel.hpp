@@ -15,5 +15,4 @@ public:
   ~Shovel();
 };
 
-
 #endif //EX00_SHOVEL_HPP

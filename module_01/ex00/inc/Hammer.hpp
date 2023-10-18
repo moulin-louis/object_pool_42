@@ -15,5 +15,4 @@ public:
   virtual void use();
 };
 
-
 #endif //EX00_HAMMER_HPP
