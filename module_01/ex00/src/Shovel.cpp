@@ -6,10 +6,14 @@
 
 Shovel::Shovel() {
   this->numberOfUses = 0;
-  this->owner = 0;
+  this->owner = NULL;
   cout << "Shovel: Creating..." << endl;
 }
 void Shovel::use() {
-  cout << "USING SHOOOVEEELL" << endl;
+  cout << "Shovel:USING SHOOOVEEELL" << endl;
   this->numberOfUses += 1;
+}
+
+Shovel::~Shovel() {
+  cout << "Shovel: Destructing..." << endl;
 }

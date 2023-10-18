@@ -32,6 +32,7 @@ C_FILES		=	main.cpp	\
 				Shovel.cpp	\
 				Hammer.cpp	\
 				Worker.cpp	\
+				Workshop.cpp\
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 

@@ -5,15 +5,12 @@
 #include "../inc/Tool.hpp"
 
 void Tool::remove_owner() {
-    if (this->owner)
-        ((Worker*)this->owner)->remove_tool(this);
+    cout << "Tool: remove owner" << endl;
     this->owner = NULL;
 }
 
 void Tool::add_owner(const Worker* new_owner) {
-    cout << "Tool: Add new owner" << endl;
-    if (!new_owner)
-        return;
+    cout << "Tool: add new owner" << endl;
     this->owner = new_owner;
 }
 

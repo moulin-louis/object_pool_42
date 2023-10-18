@@ -22,9 +22,10 @@ public:
   ~Worker();
   void add_tool(Tool *);
   void remove_tool(Tool *);
+  void return_tool(Tool *);
+  void work();
   friend ostream &operator<<(ostream &, const Worker &);
 private:
-
   Position position;
   Statistic statistic;
   vector<Tool *> tools;

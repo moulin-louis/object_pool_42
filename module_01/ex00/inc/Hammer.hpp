@@ -11,6 +11,7 @@
 class Hammer : public Tool {
 public:
   Hammer();
+  ~Hammer();
   virtual void use();
 };
 

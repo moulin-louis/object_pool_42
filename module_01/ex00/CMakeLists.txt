@@ -9,9 +9,11 @@ add_executable(module_00 ./src/main.cpp
         ./src/Shovel.cpp
         ./src/Tool.cpp
         ./src/Worker.cpp
+        ./src/Workshop.cpp
         ./inc/Hammer.hpp
         ./inc/Position.hpp
         ./inc/Shovel.hpp
         ./inc/Statistic.hpp
         ./inc/Tool.hpp
-        ./inc/Worker.hpp)
+        ./inc/Worker.hpp
+        ./inc/Workshop.hpp)

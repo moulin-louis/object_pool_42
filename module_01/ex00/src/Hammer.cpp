@@ -7,10 +7,14 @@
 Hammer::Hammer() {
   cout << "Hamer: Creating..." << endl;
   this->numberOfUses = 0;
-  this->owner = 0;
+  this->owner = NULL;
 }
 
 void Hammer::use() {
-  cout << "USING HAMMMMMEEEER " << endl;
+  cout << "Hammer: USING HAMMMMMEEEER " << endl;
   this->numberOfUses += 1;
+}
+
+Hammer::~Hammer() {
+  cout << "Hammer: destructring..." << endl;
 }
