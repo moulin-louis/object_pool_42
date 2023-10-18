@@ -1,16 +1,16 @@
 //
-// Created by llr on 10/17/23.
+// Created by loumouli on 10/17/23.
 //
 #ifndef EX00_HAMMER_HPP
 #define EX00_HAMMER_HPP
 
-#include "Tool.hpp"
 #include <iostream>
 
-using namespace std;
+#include "Tool.hpp"
 
-class Hammer : protected Tool {
+class Hammer : public Tool {
 public:
+  Hammer();
   virtual void use();
 };
 

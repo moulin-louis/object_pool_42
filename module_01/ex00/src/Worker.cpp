@@ -2,37 +2,42 @@
 // Created by loumouli on 10/17/23.
 //
 
-#include "Worker.hpp"
+#include "../inc/Worker.hpp"
 
 Worker::Worker() : position(), statistic() {
   cout << "Worker: creating..." << endl;
-  this->shovel = NULL;
 }
 
-void Worker::add_shovel(Shovel *shovel_to_add) {
+void Worker::add_tool(Tool *tool) {
   cout << "Worker: add shovel to fist" << endl;
-  if (!shovel_to_add)
+  if (!tool)
     return;
-  this->shovel = shovel_to_add;
-  this->shovel->add_fist(this);
+  if (tool->get_owner() != NULL)
+    tool->remove_owner();
+  tool->add_owner(this);
+  this->tools.push_back(tool);
 }
 
-void Worker::remove_shovel() {
-  cout << "Worker: removing shovel from fist" << endl;
-  if (!this->shovel)
+void Worker::remove_tool(Tool *tool) {
+  cout << "Worker: removing tool from equiped tools" << endl;
+  if (!tool)
     return;
-  Shovel *tmp = this->shovel;
-  this->shovel = NULL;
-  tmp->remove_fist();
+  vector<Tool*>::iterator it = std::find(this->tools.begin(), this->tools.end(), tool);
+  if (it == this->tools.end()) {
+    cout << "Worker: Cant find the tool to remove" << endl;
+    return;
+  }
+  (*it)->remove_owner();
+  this->tools.erase(it);
 }
 
 ostream &operator<<(ostream &os, const Worker &worker) {
-  os << "Shovel address: " << worker.shovel << endl;
+  os << "Number of tools: " << worker.tools.size() << endl;
   return os;
 }
 
 Worker::~Worker() {
-  if (!this->shovel)
-    return;
-  this->shovel->remove_fist();
+  for (vector<Tool *>::iterator it = this->tools.begin(); it != this->tools.end(); it++) {
+    // (*it)->remove_owner();
+  }
 }
