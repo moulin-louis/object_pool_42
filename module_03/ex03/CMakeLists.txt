@@ -4,11 +4,8 @@ set(CMAKE_CXX_STANDARD 98)            # Enable c++14 standard
 
 # Add main.cpp file of the project root directory as a source file
 set(SOURCE_FILES src/main.cpp
-        src/Apprentice.cpp
-        src/ContractWorker.cpp
-        src/Employee.cpp
-        src/EmployeeManager.cpp
-        src/TempWorker.cpp)
+        inc/hourlyEmployee.hpp
+        inc/salariedEmployee.hpp)
 include_directories(./inc)
 
 add_compile_options(-g -Wall -Werror -Wextra)
