@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.13)  # CMake version check
-project(ex02)               # Create project "simple_example"
-set(CMAKE_CXX_STANDARD 98)            # Enable c++14 standard
+cmake_minimum_required(VERSION 3.22)
+project(ex02)
 
-# Add main.cpp file of the project root directory as a source file
-set(SOURCE_FILES main.cpp)
+set(CMAKE_CXX_STANDARD 98)
+
 add_compile_options(-g -Wall -Werror -Wextra)
-# Add executable target with source files listed in SOURCE_FILES variable
-add_executable(simple_example ${SOURCE_FILES})
+
+add_executable(ex02 main.cpp)
