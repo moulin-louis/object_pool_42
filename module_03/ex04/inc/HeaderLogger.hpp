@@ -1,12 +1,10 @@
 //
 // Created by loumouli on 10/20/23.
 //
-
 #ifndef EX04_HEADERLOGGER_HPP
 #define EX04_HEADERLOGGER_HPP
 
 #include "ILogger.hpp"
-#include <typeinfo>
 
 template<class T>
 class HeaderLogger : virtual public ILogger {
@@ -24,7 +22,7 @@ public:
       delete this->header;
     this->header = new T;
     *this->header = new_header;
-  }
+  };
 
   virtual void write(string) = 0;
 };

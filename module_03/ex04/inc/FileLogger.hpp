@@ -19,7 +19,7 @@ public:
     this->file.open(file_name.c_str(), ios::out);
     if (!this->file.is_open())
       throw std::runtime_error(string("File: cant open:") + file_name);
-  }
+  };
 
   ~File() { this->file.close(); };
 
