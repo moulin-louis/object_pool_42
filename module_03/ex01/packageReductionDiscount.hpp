@@ -7,7 +7,7 @@
 
 #include "command.hpp"
 
-class PackageReductionDiscountCommand : public Command {
+class PackageReductionDiscountCommand : virtual public Command {
 public:
   virtual float get_total_price() {
     float result = 0;
