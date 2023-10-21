@@ -42,48 +42,39 @@ void setup_subscribe(SubscriptionToCourseForm *form, Course *course, Student *st
 }
 
 void setup(Form *form) {
-  if (form->get_form_type() == FormType::NeedCourseCreation) {
+  if (form->get_form_type() == FormType::NeedCourseCreation)
     setup_course_creation((NeedCourseCreationForm *)form, string("42"), 5, 30);
-  } else if (form->get_form_type() == FormType::CourseFinished) {
+  else if (form->get_form_type() == FormType::CourseFinished)
     setup_course_finished((CourseFinishedForm *)form, find_class<Course, Course>());
-  } else if (form->get_form_type() == FormType::NeedMoreClassRoom) {
+  else if (form->get_form_type() == FormType::NeedMoreClassRoom)
     setup_classroom_creation((NeedMoreClassRoomForm *)form, find_class<Course, Course>());
-  } else if (form->get_form_type() == FormType::SubscriptionToCourse) {
+  else if (form->get_form_type() == FormType::SubscriptionToCourse)
     setup_subscribe((SubscriptionToCourseForm *)form, find_class<Course, Course>(), find_class<Student, Student>());
-  }
 }
 
 int main() {
   new Headmaster("HM");
-  Form *form;
   Headmaster *hm = find_class<Staff, Headmaster>();
   Secretary *secretary = find_class<Staff, Secretary>();
 
   StudentList.get_list().push_back(new Student("Toto"));
 
   //Create a Course
-  form = secretary->createForm(FormType::NeedCourseCreation);
-  setup(form);
-  hm->signForm(1);
-  cout << "Size of CourseList: " << CourseList.get_const_list().size() << endl;
+  setup(secretary->createForm(FormType::NeedCourseCreation));
 
  //  Delete the same Course
-//  form = secretary->createForm(FormType::CourseFinished);
-//  setup(form);
-//  cout << "Size of CourseList: " << CourseList.get_const_list().size() << endl;
+  setup(secretary->createForm(FormType::CourseFinished));
 
- //  Create another Course
-//  form = secretary->createForm(FormType::NeedCourseCreation);
-//  setup(form);
+//   Create another Course
+  setup(secretary->createForm(FormType::NeedCourseCreation));
 
  //  Create a Classroom
-//  form = secretary->createForm(FormType::NeedMoreClassRoom);
-//  setup(form);
+   setup(secretary->createForm(FormType::NeedMoreClassRoom));
 //  cout << "Size of RoomList: " << RoomList.get_list().size() << endl;
 
  //  Subscribe a Student to a Course
-//  form = secretary->createForm(FormType::SubscriptionToCourse);
-//  setup(form);
-//  cout << *(*CourseList.get_list().begin());
+  setup(secretary->createForm(FormType::SubscriptionToCourse));
+//  cout << find_class<Course, Course>() << endl;
+  hm->signForm(10);
   return 0;
 }

@@ -46,13 +46,22 @@ Secretary::~Secretary() {
     delete elem;
 }
 
+void Headmaster::sign(Form *p_form) {
+  p_form->is_signed = true;
+}
+
 void Headmaster::signForm(unsigned int nbr_to_sign) {
+  if (nbr_to_sign > this->formToValidate.size()) {
+    nbr_to_sign = this->formToValidate.size();
+  }
   for (unsigned int i = 0; i < nbr_to_sign; i++) {
     auto form = this->formToValidate.begin();
+    this->sign(*form);
     (*form)->is_signed = true;
     (*form)->execute();
     secretary->archiveForm(*form);
     this->formToValidate.erase(form);
+    cout << endl;
   }
 }
 

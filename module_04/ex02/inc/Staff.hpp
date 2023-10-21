@@ -26,7 +26,7 @@ private:
 public:
   explicit Staff(const string &p_name) : Person(p_name) {};
 
-  void sign(Form *p_form) {
+  static void sign(Form *p_form) {
     cout << "Cant sign Form, not a Headmaster" << endl;
   };
 
@@ -45,6 +45,8 @@ public:
       return;
     this->formToValidate.push_back(p_form);
   };
+
+  static void sign(Form *p_form);
 
   void signForm(unsigned int nbr_to_sign);
 };
