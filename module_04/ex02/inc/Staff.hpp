@@ -17,6 +17,8 @@ class Course;
 
 enum class FormType;
 
+class Secretary;
+
 using namespace std;
 
 class Staff : public Person {
@@ -27,25 +29,39 @@ public:
   void sign(Form *p_form) {
     cout << "Cant sign Form, not a Headmaster" << endl;
   };
+
+  virtual ~Staff() = default;
 };
 
 class Headmaster : public Staff {
 private:
   vector<Form *> formToValidate;
-
+  Secretary *secretary;
 public:
-  void receiveForm(Form *p_form);
+  explicit Headmaster(const string &p_name);
+
+  void receiveForm(Form *p_form) {
+    if (!p_form)
+      return;
+    this->formToValidate.push_back(p_form);
+  };
+
+  void signForm(unsigned int nbr_to_sign);
 };
 
 class Secretary : public Staff {
 private:
+  vector<Form *> waiting_form;
   vector<Form *> archive_form;
+  Headmaster *hm;
 public:
-  explicit Secretary(const string &p_name) : Staff(p_name) {};
+  explicit Secretary(const string &p_name, Headmaster *p_hm) : Staff(p_name) { this->hm = p_hm; };
 
-  static Form *createForm(FormType p_formType);
+  ~Secretary() override;
 
-  void archiveForm();
+  Form *createForm(FormType p_formType);
+
+  void archiveForm(Form *p_form);
 };
 
 class Professor : public Staff {

@@ -2,6 +2,9 @@
 // Created by loumouli on 10/21/23.
 //
 #include "Course.hpp"
+#include <algorithm>
+
+using namespace std;
 
 Form *Secretary::createForm(FormType p_formType) {
   Form *result;
@@ -19,5 +22,44 @@ Form *Secretary::createForm(FormType p_formType) {
       result = new SubscriptionToCourseForm(FormType::SubscriptionToCourse);
       break;
   }
+  this->waiting_form.push_back(result);
+  this->hm->receiveForm(result);
   return result;
+}
+
+void Secretary::archiveForm(Form *p_form) {
+  cout << "Archiving Form..." << endl;
+  auto it = find(this->waiting_form.begin(), this->waiting_form.end(), p_form);
+  if (it == this->waiting_form.end()) {
+    cout << "Cant find this Form" << endl;
+    return;
+  }
+  this->waiting_form.erase(it);
+  this->archive_form.push_back(p_form);
+  cout << "Form archived!" << endl;
+}
+
+Secretary::~Secretary() {
+  for (auto elem : this->waiting_form)
+    delete elem;
+  for (auto elem : this->archive_form)
+    delete elem;
+}
+
+void Headmaster::signForm(unsigned int nbr_to_sign) {
+  for (unsigned int i = 0; i < nbr_to_sign; i++) {
+    auto form = this->formToValidate.begin();
+    (*form)->is_signed = true;
+    (*form)->execute();
+    secretary->archiveForm(*form);
+    this->formToValidate.erase(form);
+  }
+}
+
+Headmaster::Headmaster(const string &p_name) : Staff(p_name) {
+  Lists<Staff>& StaffLists = Singleton<Lists<Staff>>::instance();
+
+  this->secretary = new Secretary("Secretary", this);
+  StaffLists.get_list().push_back(this->secretary);
+  StaffLists.get_list().push_back(this);
 }

@@ -7,6 +7,21 @@
 
 using namespace std;
 
+Lists<Student> &StudentList = Singleton<Lists<Student>>::instance();
+Lists<Room> &RoomList = Singleton<Lists<Room>>::instance();
+Lists<Course> &CourseList = Singleton<Lists<Course>>::instance();
+Lists<Staff> &StaffList = Singleton<Lists<Staff>>::instance();
+
+template <class BaseClass, class ChildClass>
+ChildClass* find_class() {
+  Lists<BaseClass> &list = Singleton<Lists<BaseClass>>::instance();
+  for (auto elem : list.get_list()) {
+    if (dynamic_cast<ChildClass*>(elem) != nullptr)
+      return (ChildClass *)elem;
+  }
+  return nullptr;
+}
+
 void setup_course_creation(NeedCourseCreationForm *form, const string& name, int nbr_class, int max_student) {
   form->set_name(name);
   form->set_nbr_class(nbr_class);
@@ -26,48 +41,49 @@ void setup_subscribe(SubscriptionToCourseForm *form, Course *course, Student *st
   form->set_student(student);
 }
 
-void execute_n_delete(Form *form) {
-  form->execute();
-  delete form;
+void setup(Form *form) {
+  if (form->get_form_type() == FormType::NeedCourseCreation) {
+    setup_course_creation((NeedCourseCreationForm *)form, string("42"), 5, 30);
+  } else if (form->get_form_type() == FormType::CourseFinished) {
+    setup_course_finished((CourseFinishedForm *)form, find_class<Course, Course>());
+  } else if (form->get_form_type() == FormType::NeedMoreClassRoom) {
+    setup_classroom_creation((NeedMoreClassRoomForm *)form, find_class<Course, Course>());
+  } else if (form->get_form_type() == FormType::SubscriptionToCourse) {
+    setup_subscribe((SubscriptionToCourseForm *)form, find_class<Course, Course>(), find_class<Student, Student>());
+  }
 }
 
 int main() {
-  Lists<Room> &RoomList = Singleton<Lists<Room>>::instance();
-  Lists<Student> &StudentList = Singleton<Lists<Student>>::instance();
-//  Lists<Staff> &StaffList = Singleton<Lists<Staff>>::instance();
-  Lists<Course> &CourseList = Singleton<Lists<Course>>::instance();
+  new Headmaster("HM");
+  Form *form;
+  Headmaster *hm = find_class<Staff, Headmaster>();
+  Secretary *secretary = find_class<Staff, Secretary>();
 
   StudentList.get_list().push_back(new Student("Toto"));
-  Secretary secretary("Mr.Secretary");
-  Form *form;
 
   //Create a Course
-  form = Secretary::createForm(FormType::NeedCourseCreation);
-  setup_course_creation((NeedCourseCreationForm *)form, string("42"), 5, 30);
-  execute_n_delete(form);
+  form = secretary->createForm(FormType::NeedCourseCreation);
+  setup(form);
+  hm->signForm(1);
   cout << "Size of CourseList: " << CourseList.get_const_list().size() << endl;
 
-  //Delete the same Course
-  form = Secretary::createForm(FormType::CourseFinished);
-  setup_course_finished((CourseFinishedForm *)form, *CourseList.get_list().begin());
-  execute_n_delete(form);
-  cout << "Size of CourseList: " << CourseList.get_const_list().size() << endl;
+ //  Delete the same Course
+//  form = secretary->createForm(FormType::CourseFinished);
+//  setup(form);
+//  cout << "Size of CourseList: " << CourseList.get_const_list().size() << endl;
 
-  //Create another Course
-  form = Secretary::createForm(FormType::NeedCourseCreation);
-  setup_course_creation((NeedCourseCreationForm *)form, string("42"), 5, 30);
-  execute_n_delete(form);
+ //  Create another Course
+//  form = secretary->createForm(FormType::NeedCourseCreation);
+//  setup(form);
 
-  //Create a Classroom
-  form = Secretary::createForm(FormType::NeedMoreClassRoom);
-  setup_classroom_creation((NeedMoreClassRoomForm *)form, *CourseList.get_list().begin());
-  execute_n_delete(form);
-  cout << "Size of RoomList: " << RoomList.get_list().size() << endl;
+ //  Create a Classroom
+//  form = secretary->createForm(FormType::NeedMoreClassRoom);
+//  setup(form);
+//  cout << "Size of RoomList: " << RoomList.get_list().size() << endl;
 
-  //Subscribe a Student to a Course
-  form = Secretary::createForm(FormType::SubscriptionToCourse);
-  setup_subscribe((SubscriptionToCourseForm *)form, *CourseList.get_list().begin(), *StudentList.get_list().begin());
-  execute_n_delete(form);
-  cout << *(*CourseList.get_list().begin());
+ //  Subscribe a Student to a Course
+//  form = secretary->createForm(FormType::SubscriptionToCourse);
+//  setup(form);
+//  cout << *(*CourseList.get_list().begin());
   return 0;
 }

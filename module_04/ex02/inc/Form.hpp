@@ -21,6 +21,8 @@ class Lists;
 template<class T>
 class Singleton;
 
+class Headmaster;
+
 using namespace std;
 
 enum class FormType {
@@ -33,12 +35,22 @@ enum class FormType {
 class Form {
 private:
   FormType formType;
+  bool is_signed;
 public:
-  explicit Form(FormType p_formType) { this->formType = p_formType; }
+  friend Headmaster;
+
+  explicit Form(FormType p_formType) {
+    this->formType = p_formType;
+    this->is_signed = false;
+  }
 
   virtual ~Form() = default;
 
   virtual void execute() = 0;
+
+  const FormType &get_form_type() { return this->formType; };
+
+  bool get_signed() { return this->is_signed; };
 };
 
 class NeedCourseCreationForm : public Form {
