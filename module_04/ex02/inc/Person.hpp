@@ -7,26 +7,33 @@
 #define EX02_PERSON_HPP
 
 #include <string>
-#include "Room.hpp"
+
+class Room;
+
+class Classroom;
+
+class Course;
 
 using namespace std;
 
 class Person {
 private:
-  string _name;
-  Room *_currentRoom;
+  string name;
+  Room *currentRoom;
 public:
   explicit Person(const string &p_name) {
-    this->_name = p_name;
-    this->_currentRoom = nullptr;
+    this->name = p_name;
+    this->currentRoom = nullptr;
   };
 
-  Room *room() { return (_currentRoom); }
+  const string &get_name() const { return this->name; };
+
+  Room *room() { return (currentRoom); }
 };
 
 class Student : public Person {
 private:
-  vector<Course *> _subscribedCourse;
+  vector<Course *> subscribedCourse;
 
 public:
   explicit Student(const string &p_name) : Person(p_name) {};
@@ -36,6 +43,17 @@ public:
   void exitClass();
 
   void graduate(Course *p_course);
+
+  void add_subscribed_course(Course *p_course) {
+    if (!p_course)
+      return;
+    this->subscribedCourse.push_back(p_course);
+  }
+
+  friend ostream &operator<<(ostream &p_os, const Student &p_student) {
+    p_os << p_student.get_name();
+    return p_os;
+  }
 };
 
 #endif //EX02_PERSON_HPP

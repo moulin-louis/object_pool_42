@@ -7,7 +7,15 @@
 #define EX02_STAFF_HPP
 
 #include <string>
-#include "Form.hpp"
+#include <vector>
+
+class Form;
+
+class Person;
+
+class Course;
+
+enum class FormType;
 
 using namespace std;
 
@@ -16,12 +24,14 @@ private:
 public:
   explicit Staff(const string &p_name) : Person(p_name) {};
 
-  void sign(Form *p_form);
+  void sign(Form *p_form) {
+    cout << "Cant sign Form, not a Headmaster" << endl;
+  };
 };
 
 class Headmaster : public Staff {
 private:
-  vector<Form *> _formToValidate;
+  vector<Form *> formToValidate;
 
 public:
   void receiveForm(Form *p_form);
@@ -29,29 +39,18 @@ public:
 
 class Secretary : public Staff {
 private:
-
+  vector<Form *> archive_form;
 public:
   explicit Secretary(const string &p_name) : Staff(p_name) {};
 
-  static Form *createForm(FormType p_formType) {
-    switch (p_formType) {
-      case FormType::CourseFinished:
-        return new CourseFinishedForm(FormType::CourseFinished);
-      case FormType::NeedMoreClassRoom:
-        return new NeedMoreClassRoomForm(FormType::NeedMoreClassRoom);
-      case FormType::NeedCourseCreation:
-        return new NeedCourseCreationForm(FormType::NeedCourseCreation);
-      case FormType::SubscriptionToCourse:
-        return new SubscriptionToCourseForm(FormType::SubscriptionToCourse);
-    }
-  }
+  static Form *createForm(FormType p_formType);
 
   void archiveForm();
 };
 
 class Professor : public Staff {
 private:
-  Course *_currentCourse;
+  Course *currentCourse;
 
 public:
   explicit Professor(const string &p_name) : Staff(p_name) {};

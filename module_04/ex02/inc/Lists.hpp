@@ -33,22 +33,31 @@ protected:
 template<class T>
 class Lists {
 private:
-  list<T *> _list;
+  list<T *> lists;
 public:
   void add_to_list(T *val) {
     if (!val)
       return;
-    this->_list.push_back(val);
+    this->lists.push_back(val);
   };
 
   void remove_from_list(T *val) {
     if (!val)
       return;
-    this->_list.remove(val);
+    this->lists.remove(val);
+    delete val;
   };
 
-  const list<T *> &get_list() const { return this->_list; };
+  const list<T *> &get_const_list() const { return this->lists; };
+
+  list<T *> &get_list() { return this->lists; };
+
+  ~Lists() {
+    for (auto &elem: this->lists) {
+      delete elem;
+    }
+  }
 };
 
 
-#endif //EX01_LISTS_HPP
+#endif //EX02_LISTS_HPP

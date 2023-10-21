@@ -7,8 +7,19 @@
 #define EX02_FORM_HPP
 
 #include <iostream>
+#include <random>
 
 class Professor;
+
+class Course;
+
+class Student;
+
+template<class T>
+class Lists;
+
+template<class T>
+class Singleton;
 
 using namespace std;
 
@@ -21,56 +32,97 @@ enum class FormType {
 
 class Form {
 private:
-  FormType _formType;
-
+  FormType formType;
 public:
-  explicit Form(FormType p_formType) { this->_formType = p_formType; }
+  explicit Form(FormType p_formType) { this->formType = p_formType; }
+
   virtual ~Form() = default;
+
   virtual void execute() = 0;
-};
-
-class CourseFinishedForm : public Form {
-private:
-
-public:
-  explicit CourseFinishedForm(FormType p_formType) : Form(p_formType) {};
-  void execute() override {
-    cout << "Executing CourseFinished Form" << endl;
-  };
-};
-
-class NeedMoreClassRoomForm : public Form {
-private:
-
-public:
-  explicit NeedMoreClassRoomForm(FormType p_formType) : Form(p_formType) {};
-  void execute() override {
-    cout << "Executing NeedMoreClassRoom Form" << endl;
-  };
 };
 
 class NeedCourseCreationForm : public Form {
 private:
   string name_course;
-  Professor *professor;
-  int number_class;
-  int max_student;
+  int number_class{};
+  int max_student{};
 public:
   explicit NeedCourseCreationForm(FormType p_formType) : Form(p_formType) {};
-  void execute() override { cout << "Executing NeedCourseCreation Form" << endl; };
+
+  void execute() override;
+
   void set_name(const string &p_name) { this->name_course = p_name; };
-  void set_proff(Professor *p_proff) { this->professor = p_proff; };
-  void set_nbr_class(int p_nbr) { this->number_class = p_nbr; };
-  void set_max_student(int p_nbr) { this->max_student = p_nbr; };
+
+  void set_nbr_class(int p_nbr) {
+    if (p_nbr < 0)
+      return;
+    this->number_class = p_nbr;
+  };
+
+  void set_max_student(int p_nbr) {
+    if (p_nbr < 0)
+      return;
+    this->max_student = p_nbr;
+  };
+};
+
+class CourseFinishedForm : public Form {
+private:
+  Course *course_finished{};
+public:
+  explicit CourseFinishedForm(FormType p_formType) : Form(p_formType) {};
+
+  void execute() override;
+
+  void set_course_finished(Course *p_course) {
+    if (!p_course)
+      return;
+    this->course_finished = p_course;
+  };
+};
+
+class NeedMoreClassRoomForm : public Form {
+private:
+  long long id;
+  Course *course;
+public:
+  explicit NeedMoreClassRoomForm(FormType p_formType) : Form(p_formType) {
+    std::random_device rd;
+    this->id = rd();
+    this->course = nullptr;
+  };
+
+  void execute() override;
+
+  void set_course(Course *p_course) {
+    if (!p_course)
+      return;
+    this->course = p_course;
+  }
 };
 
 class SubscriptionToCourseForm : public Form {
 private:
-
+  Student *student;
+  Course *course;
 public:
-  explicit SubscriptionToCourseForm(FormType p_formType) : Form(p_formType) {};
-  void execute() override {
-    cout << "Executing SubscriptionToCourse Form" << endl;
+  explicit SubscriptionToCourseForm(FormType p_formType) : Form(p_formType) {
+    this->student = nullptr;
+    this->course = nullptr;
+  };
+
+  void execute() override;
+
+  void set_student(Student *p_student) {
+    if (!p_student)
+      return;
+    this->student = p_student;
+  };
+
+  void set_course(Course *p_course) {
+    if (!p_course)
+      return;
+    this->course = p_course;
   };
 };
 

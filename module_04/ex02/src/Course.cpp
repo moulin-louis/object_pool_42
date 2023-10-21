@@ -3,10 +3,9 @@
 //
 #include "Course.hpp"
 
-Course::Course(const string &p_name)  {
+Course::Course(const string &p_name, int max_student, int nbr_graduate) {
   this->_name = p_name;
-  this->_responsable = nullptr;
-  this->_maximumNumberOfStudent = 0;
-  this->_numberOfClassToGraduate = 0;
+  this->maximumNumberOfStudent = max_student;
+  this->numberOfClassToGraduate = nbr_graduate;
+  this->students = vector<Student *>();
 }
-

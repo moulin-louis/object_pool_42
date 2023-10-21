@@ -8,7 +8,15 @@
 
 #include <string>
 #include <vector>
+#include "Course.hpp"
+#include "Event.hpp"
+#include "Form.hpp"
+#include "Lists.hpp"
 #include "Person.hpp"
+#include "Room.hpp"
+#include "Staff.hpp"
+
+class Student;
 
 class Professor;
 
@@ -17,23 +25,30 @@ using namespace std;
 class Course {
 private:
   string _name;
-  Professor *_responsable;
-  vector<Student *> _students;
-  int _numberOfClassToGraduate;
-  int _maximumNumberOfStudent;
+  Professor *responsable;
+  vector<Student *> students;
+  int numberOfClassToGraduate;
+  int maximumNumberOfStudent;
 public:
-  explicit Course(const string &p_name);
+  explicit Course(const string &, int, int);
 
   void assign(Professor *p_professor) {
     if (!p_professor)
       return;
-    this->_responsable = p_professor;
+    this->responsable = p_professor;
   };
 
   void subscribe(Student *p_student) {
     if (!p_student)
       return;
-    this->_students.push_back(p_student);
+    this->students.push_back(p_student);
+  };
+
+  friend ostream &operator<<(ostream &p_os, const Course &p_course) {
+    for (auto &student: p_course.students) {
+      p_os << *student << endl;
+    }
+    return p_os;
   };
 };
 
