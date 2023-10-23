@@ -2,6 +2,7 @@
 // Created by loumouli on 10/21/23.
 //
 #include "Course.hpp"
+
 #include <algorithm>
 
 using namespace std;
@@ -22,6 +23,7 @@ Form *Secretary::createForm(FormType p_formType) {
       result = new SubscriptionToCourseForm(FormType::SubscriptionToCourse);
       break;
   }
+
   this->waiting_form.push_back(result);
   this->hm->receiveForm(result);
   return result;
@@ -40,9 +42,9 @@ void Secretary::archiveForm(Form *p_form) {
 }
 
 Secretary::~Secretary() {
-  for (auto elem : this->waiting_form)
+  for (auto elem: this->waiting_form)
     delete elem;
-  for (auto elem : this->archive_form)
+  for (auto elem: this->archive_form)
     delete elem;
 }
 
@@ -66,9 +68,15 @@ void Headmaster::signForm(unsigned int nbr_to_sign) {
 }
 
 Headmaster::Headmaster(const string &p_name) : Staff(p_name) {
-  Lists<Staff>& StaffLists = Singleton<Lists<Staff>>::instance();
+  Lists<Staff> &StaffLists = Singleton<Lists<Staff>>::instance();
 
   this->secretary = new Secretary("Secretary", this);
   StaffLists.get_list().push_back(this->secretary);
   StaffLists.get_list().push_back(this);
+}
+
+ostream &operator<<(ostream &p_os, const Professor &p_prof) {
+  p_os << "Prof's name: " << p_prof.get_name() << endl;
+  p_os << "Current course" << p_prof.currentCourse->get_name();
+  return p_os;
 }

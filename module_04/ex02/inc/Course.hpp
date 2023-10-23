@@ -24,7 +24,7 @@ using namespace std;
 
 class Course {
 private:
-  string _name;
+  string name;
   Professor *responsable;
   vector<Student *> students;
   int numberOfClassToGraduate;
@@ -44,12 +44,9 @@ public:
     this->students.push_back(p_student);
   };
 
-  friend ostream &operator<<(ostream &p_os, const Course &p_course) {
-    for (auto &student: p_course.students) {
-      p_os << *student << endl;
-    }
-    return p_os;
-  };
+  const string &get_name() { return this->name; };
+
+  friend ostream &operator<<(ostream &p_os, const Course &p_course);
 };
 
 #endif //EX02_COURSE_HPP

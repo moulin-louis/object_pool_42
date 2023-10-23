@@ -7,19 +7,20 @@
 
 void NeedCourseCreationForm::execute() {
   Lists<Course> &CourseList = Singleton<Lists<Course>>::instance();
-
   cout << "Executing NeedCourseCreation Form" << endl;
   if (!this->get_signed()) {
-    cout << "Form isn't sign" << endl;
+    cout << "Form isn't signed" << endl;
     return;
   }
-  if (this->name_course.empty() || this->number_class <= 0 || this->max_student <= 0) {
+  if (this->name_course.empty() || this->number_class <= 0 || this->max_student <= 0 || !this->prof) {
     cout << "Invalid Params for NeedCourseCreation Form" << endl;
     cout << this->name_course << " " << this->number_class << " " << this->max_student << endl;
     cout << "Cant execute Form" << endl;
     return;
   }
   auto *new_course = new Course(this->name_course, this->max_student, this->number_class);
+  this->prof->assignCourse(new_course);
+  new_course->assign(this->prof);
   CourseList.add_to_list(new_course);
   cout << "NeedCourseCreation Form executed" << endl;
 }
@@ -29,7 +30,7 @@ void CourseFinishedForm::execute() {
 
   cout << "Executing CourseFinished Form" << endl;
   if (!this->get_signed()) {
-    cout << "Form isn't sign" << endl;
+    cout << "Form isn't signed" << endl;
     return;
   }
   if (!this->course_finished) {
@@ -52,7 +53,7 @@ void NeedMoreClassRoomForm::execute() {
 
   cout << "Executing NeedMoreClassRoom Form" << endl;
   if (!this->get_signed()) {
-    cout << "Form isn't sign" << endl;
+    cout << "Form isn't signed" << endl;
     return;
   }
   if (!this->course) {
@@ -69,7 +70,7 @@ void NeedMoreClassRoomForm::execute() {
 void SubscriptionToCourseForm::execute() {
   cout << "Executing SubscriptionToCourse Form" << endl;
   if (!this->get_signed()) {
-    cout << "Form isn't sign" << endl;
+    cout << "Form isn't signed" << endl;
     return;
   }
   if (!this->student || !this->course) {

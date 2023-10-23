@@ -50,7 +50,7 @@ public:
 
   const FormType &get_form_type() { return this->formType; };
 
-  bool get_signed() { return this->is_signed; };
+  bool get_signed() const { return this->is_signed; };
 };
 
 class NeedCourseCreationForm : public Form {
@@ -58,8 +58,11 @@ private:
   string name_course;
   int number_class{};
   int max_student{};
+  Professor *prof;
 public:
-  explicit NeedCourseCreationForm(FormType p_formType) : Form(p_formType) {};
+  explicit NeedCourseCreationForm(FormType p_formType) : Form(p_formType) {
+    this->prof = nullptr;
+  };
 
   void execute() override;
 
@@ -76,6 +79,12 @@ public:
       return;
     this->max_student = p_nbr;
   };
+
+  void set_prof(Professor *p_prof) {
+    if (!p_prof)
+      return;
+    this->prof = p_prof;
+  }
 };
 
 class CourseFinishedForm : public Form {
@@ -110,7 +119,7 @@ public:
     if (!p_course)
       return;
     this->course = p_course;
-  }
+  };
 };
 
 class SubscriptionToCourseForm : public Form {

@@ -14,6 +14,11 @@ using namespace std;
 
 template<typename T>
 class Singleton {
+protected:
+  Singleton() = default;
+
+  virtual ~Singleton() = default;
+
 public:
   static T &instance() {
     static std::unique_ptr<T> instance(new T());
@@ -23,11 +28,6 @@ public:
   Singleton(const Singleton &) = delete;
 
   Singleton &operator=(const Singleton &) = delete;
-
-protected:
-  Singleton() = default;
-
-  virtual ~Singleton() = default;
 };
 
 template<class T>
@@ -42,10 +42,10 @@ public:
   };
 
   void remove_from_list(T *val) {
-    if (!val)
-      return;
-    this->lists.remove(val);
-    delete val;
+    if (val) {
+      this->lists.remove(val);
+      delete val;
+    }
   };
 
   const list<T *> &get_const_list() const { return this->lists; };

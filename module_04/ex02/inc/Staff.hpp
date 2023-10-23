@@ -64,6 +64,8 @@ public:
   Form *createForm(FormType p_formType);
 
   void archiveForm(Form *p_form);
+
+  vector<Form *>& get_waiting_form() { return this->waiting_form; };
 };
 
 class Professor : public Staff {
@@ -71,13 +73,21 @@ private:
   Course *currentCourse;
 
 public:
-  explicit Professor(const string &p_name) : Staff(p_name) {};
+  explicit Professor(const string &p_name) : Staff(p_name) {
+    this->currentCourse = nullptr;
+  };
 
-  void assignCourse(Course *p_course);
+  void assignCourse(Course *p_course) {
+    if (!p_course)
+      return;
+    this->currentCourse = p_course;
+  };
 
   void doClass();
 
   void closeCourse();
+
+  friend ostream& operator<<(ostream& p_os, const Professor& p_prof);
 };
 
 #endif //EX02_STAFF_HPP

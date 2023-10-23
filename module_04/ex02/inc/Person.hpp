@@ -28,13 +28,17 @@ public:
 
   const string &get_name() const { return this->name; };
 
-  Room *room() { return (currentRoom); }
+  const Room *get_room() { return (this->currentRoom); }
+
+  friend ostream &operator<<(ostream &p_os, const Person &p_person) {
+    p_os << "name: " << p_person.name << endl;
+    return p_os;
+  }
 };
 
 class Student : public Person {
 private:
   vector<Course *> subscribedCourse;
-
 public:
   explicit Student(const string &p_name) : Person(p_name) {};
 
@@ -51,7 +55,7 @@ public:
   }
 
   friend ostream &operator<<(ostream &p_os, const Student &p_student) {
-    p_os << p_student.get_name();
+    p_os << "name's: " << p_student.get_name();
     return p_os;
   }
 };

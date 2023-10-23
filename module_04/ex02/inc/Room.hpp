@@ -36,7 +36,16 @@ public:
 
   void exit(Person *);
 
-  void printOccupant();
+  void printOccupant() {
+    for (auto *person: this->occupants) {
+      cout << *person;
+    }
+  };
+
+  friend ostream &operator<<(ostream &p_os, const Room &p_room) {
+    p_os << "Id: " << p_room.ID << endl;
+    return p_os;
+  }
 };
 
 class Classroom : public Room {
