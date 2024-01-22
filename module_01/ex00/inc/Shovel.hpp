@@ -4,15 +4,13 @@
 #ifndef EX00_SHOVEL_HPP
 #define EX00_SHOVEL_HPP
 
-#include <iostream>
-
 #include "Tool.hpp"
 
 class Shovel : public Tool {
 public:
-  virtual void use();
   Shovel();
   ~Shovel();
+  virtual void use();
 };
 
 #endif //EX00_SHOVEL_HPP

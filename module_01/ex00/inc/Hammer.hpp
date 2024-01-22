@@ -4,8 +4,6 @@
 #ifndef EX00_HAMMER_HPP
 #define EX00_HAMMER_HPP
 
-#include <iostream>
-
 #include "Tool.hpp"
 
 class Hammer : public Tool {

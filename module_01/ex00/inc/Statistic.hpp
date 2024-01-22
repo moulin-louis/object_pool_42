@@ -7,6 +7,11 @@
 struct Statistic {
   int level;
   int exp;
+
+  friend ostream& operator<<(ostream& os, const Statistic& stat) {
+    os << "level = " << stat.level << " exp = " << stat.exp;;
+    return os;
+  }
 };
 
 #endif //EX00_STATISTIC_HPP

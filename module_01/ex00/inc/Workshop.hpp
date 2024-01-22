@@ -8,14 +8,14 @@
 
 #include "Worker.hpp"
 
-
 class Workshop {
 public:
   void executeWorkDay();
-  void register_workshop(Worker *);
-  void leave(Worker *);
+  void register_workshop(Worker*);
+  void leave(const Worker*);
+
 private:
-  vector<Worker *> register_worker;
+  vector<Worker*> register_worker;
 };
 
 #endif //EX00_WORKSHOP_HPP

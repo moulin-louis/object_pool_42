@@ -13,6 +13,6 @@ void Tool::add_owner(const Worker* new_owner) {
     this->owner = new_owner;
 }
 
-const Worker *& Tool::get_owner() {
+const Worker*& Tool::get_owner() {
     return this->owner;
 }

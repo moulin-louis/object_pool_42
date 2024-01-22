@@ -19,15 +19,16 @@ class Worker {
 public:
   Worker();
   ~Worker();
-  void add_tool(Tool *);
-  void remove_tool(Tool *);
-  void return_tool(Tool *);
+  void add_tool(Tool*);
+  void remove_tool(Tool*);
+  void return_tool(const Tool*);
   void work();
-  friend ostream &operator<<(ostream &, const Worker &);
+  friend ostream& operator<<(ostream&, const Worker&);
+
 private:
   Position coordonnee;
   Statistic stat;
-  vector<Tool *> tools;
+  vector<Tool*> tools;
 };
 
 #endif //EX00_WORKER_HPP

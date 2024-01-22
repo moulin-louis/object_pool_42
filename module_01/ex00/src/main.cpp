@@ -14,6 +14,8 @@ int main() {
   Workshop workshop1;
   Workshop workshop2;
 
+  cout << "INFO WORKER 1" << endl << endl;
+  cout << worker1 << endl << endl;
   worker1.add_tool(&shovel);
   worker1.add_tool(&hammer);
   worker2.add_tool(&shovel);

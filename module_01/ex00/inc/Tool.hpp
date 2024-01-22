@@ -13,10 +13,12 @@ class Worker;
 class Tool {
 public:
   virtual void use() = 0;
-  const Worker *& get_owner();
+  const Worker*& get_owner();
+
 protected:
-  const Worker *owner;
+  const Worker* owner;
   u_int32_t numberOfUses;
+
 private:
   void add_owner(const Worker*);
   void remove_owner();
