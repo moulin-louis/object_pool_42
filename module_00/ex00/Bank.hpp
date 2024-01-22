@@ -18,8 +18,7 @@ struct Bank {
     int id;
     int value;
 
-    Account(): id(-1), value(0) {
-    };
+    Account(): id(-1), value(0) {};
 
     friend ostream& operator<<(std::ostream& p_os, const Account& p_account) {
       p_os << "[" << p_account.id << "] - [" << p_account.value << "]";
@@ -33,7 +32,7 @@ public:
   ~Bank();
 
   friend ostream& operator<<(std::ostream&, const Bank&);
-  const Bank::Account& operator[](int id);
+  const Account& operator[](int id);
   void create_account(int);
 
   void delete_account(int);
