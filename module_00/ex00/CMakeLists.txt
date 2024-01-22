@@ -1,9 +1,11 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.22)
 project(module_00)
 
 set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
 
-add_executable(module_00 main.cpp
+add_executable(module_00
+        main.cpp
         Bank.cpp
-        Bank.hpp)
+        Bank.hpp
+)

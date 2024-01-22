@@ -5,28 +5,23 @@
 #define MODULE_00_BANK_HPP
 
 #include <iostream>
-#include <exception>
 #include <map>
 
 using namespace std;
 
 struct Bank {
   struct Account {
-  public:
-    const int &get_value() const {
-      return this->value;
-    };
+    const int& get_value() const { return this->value; };
+
   private:
     friend struct Bank;
     int id;
     int value;
 
-    Account() {
-      this->id = -1;
-      this->value = 0;
+    Account(): id(-1), value(0) {
     };
 
-    friend ostream &operator<<(std::ostream &p_os, const Account &p_account) {
+    friend ostream& operator<<(std::ostream& p_os, const Account& p_account) {
       p_os << "[" << p_account.id << "] - [" << p_account.value << "]";
       return (p_os);
     };
@@ -37,7 +32,7 @@ public:
 
   ~Bank();
 
-  friend ostream &operator<<(std::ostream &, const Bank &);
+  friend ostream& operator<<(std::ostream&, const Bank&);
   const Bank::Account& operator[](int id);
   void create_account(int);
 
@@ -49,11 +44,11 @@ public:
 
   void take_loan(int, int);
 
-  const int &get_liquidity() const;
+  const int& get_liquidity() const;
 
 private:
   int liquidity;
-  std::map<int, Account *> clientAccounts;
+  std::map<int, Account*> clientAccounts;
   int nbr_of_client;
 };
 
