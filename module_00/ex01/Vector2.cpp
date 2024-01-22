@@ -4,7 +4,7 @@
 
 #include "Vector2.hpp"
 
-Vector2::Vector2(float ux, float uy) {
+Vector2::Vector2(const float ux, const float uy) {
   this->x = ux;
   this->y = uy;
 }

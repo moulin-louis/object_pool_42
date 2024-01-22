@@ -4,8 +4,6 @@
 #ifndef EX01_VECTOR2_HPP
 #define EX01_VECTOR2_HPP
 
-#include "Graph.hpp"
-
 class Graph;
 
 class Vector2 {

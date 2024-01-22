@@ -15,16 +15,12 @@ using namespace std;
 class Graph {
 public:
   Graph();
-  ~Graph();
-  void add_point(float, float);
-  void add_point(Vector2&);
+  void add_point(const Vector2&);
   void print_to_screen();
-  const Vector2& get_size();
-  const vector<Vector2>& get_points();
+  const Vector2& get_size() const;
 private:
-  Vector2 *size;
+  Vector2 size;
   vector<Vector2> points;
-  char *canvas;
 };
 
 
