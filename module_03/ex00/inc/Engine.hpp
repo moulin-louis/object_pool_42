@@ -13,9 +13,9 @@ protected:
   Engine();
 
 public:
-  void start();
+  static void start();
 
-  void stop();
+  static void stop();
 };
 
 #endif //EX00_ENGINE_HPP

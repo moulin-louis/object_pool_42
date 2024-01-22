@@ -5,9 +5,9 @@
 #include "../inc/Car.hpp"
 
 Car::Car() {
-  this->start();
+  start();
 }
 
 Car::~Car() {
-  this->stop();
+  stop();
 }

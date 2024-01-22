@@ -13,11 +13,11 @@ protected:
   Gears();
 
 public:
-  void shift_gears_up();
+  static void shift_gears_up();
 
-  void shift_gears_down();
+  static void shift_gears_down();
 
-  void reverse();
+  static void reverse();
 };
 
 #endif //EX00_GEARS_HPP

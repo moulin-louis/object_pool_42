@@ -8,7 +8,7 @@ Wheels::Wheels() {
   cout << "Wheels: created" << endl;
 }
 
-void Wheels::turn_wheel(float angle) {
+void Wheels::turn_wheel(const float angle) {
   cout << "Wheels: turning the wheel at an angle of " << angle << endl;
 }
 

@@ -9,7 +9,6 @@ Engine::Engine() {
 
 void Engine::start() {
   cout << "Engine: starting the engine" << endl;
-  return;
 }
 
 void Engine::stop() {

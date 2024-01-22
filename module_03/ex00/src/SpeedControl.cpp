@@ -7,7 +7,7 @@ SpeedControl::SpeedControl() {
   cout << "SpeedControl: created" << endl;
 }
 
-void SpeedControl::apply_force_on__brakes(float force) {
+void SpeedControl::apply_force_on_brakes(float force) {
   cout << "SpeedControl: " << force << " force applied to brakes" << endl;
 }
 

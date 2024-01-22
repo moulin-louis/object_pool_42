@@ -13,9 +13,9 @@ protected:
   Wheels();
 
 public:
-  void turn_wheel(float angle);
+  static void turn_wheel(float angle);
 
-  void straighten_wheels();
+  static void straighten_wheels();
 };
 
 #endif //EX00_WHEELS_HPP

@@ -13,11 +13,11 @@ protected:
   SpeedControl();
 
 public:
-  void apply_force_on__brakes(float force);
+  static void apply_force_on_brakes(float force);
 
-  void apply_emergency_brakes();
+  static void apply_emergency_brakes();
 
-  void accelerate(float speed);
+  static void accelerate(float speed);
 };
 
 #endif //EX00_SPEEDCONTROL_HPP
